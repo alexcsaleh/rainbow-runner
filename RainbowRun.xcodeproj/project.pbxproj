@@ -1,0 +1,506 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		98AA65691ACC7973001ACEB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA65681ACC7973001ACEB8 /* AppDelegate.swift */; };
+		98AA656B1ACC7973001ACEB8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98AA656A1ACC7973001ACEB8 /* GameScene.sks */; };
+		98AA656D1ACC7973001ACEB8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA656C1ACC7973001ACEB8 /* GameScene.swift */; };
+		98AA656F1ACC7973001ACEB8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA656E1ACC7973001ACEB8 /* GameViewController.swift */; };
+		98AA65721ACC7973001ACEB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98AA65701ACC7973001ACEB8 /* Main.storyboard */; };
+		98AA65741ACC7973001ACEB8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98AA65731ACC7973001ACEB8 /* Images.xcassets */; };
+		98AA65771ACC7973001ACEB8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98AA65751ACC7973001ACEB8 /* LaunchScreen.xib */; };
+		98AA65831ACC7973001ACEB8 /* RainbowRunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA65821ACC7973001ACEB8 /* RainbowRunTests.swift */; };
+		98AA658D1ACC7A03001ACEB8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98AA658C1ACC7A03001ACEB8 /* AudioToolbox.framework */; };
+		98AA658F1ACC7A0E001ACEB8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98AA658E1ACC7A0E001ACEB8 /* GameKit.framework */; };
+		98AA65971ACC7C61001ACEB8 /* RainbowRunButton.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98AA65961ACC7C61001ACEB8 /* RainbowRunButton.caf */; };
+		98AA65991ACC7CB5001ACEB8 /* InGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA65981ACC7CB5001ACEB8 /* InGameScene.swift */; };
+		98AA659B1ACC9124001ACEB8 /* walk.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98AA659A1ACC9124001ACEB8 /* walk.caf */; };
+		98AA659F1ACC91BE001ACEB8 /* HelpScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA659E1ACC91BE001ACEB8 /* HelpScene.swift */; };
+		98AA65A11ACC91FA001ACEB8 /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA65A01ACC91FA001ACEB8 /* Rainbow.swift */; };
+		98AA65A31ACC9246001ACEB8 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA65A21ACC9246001ACEB8 /* CGFloat+Extension.swift */; };
+		98AA65A51ACC9AE6001ACEB8 /* music1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98AA65A41ACC9AE6001ACEB8 /* music1.caf */; };
+		98AA65A71ACC9C6D001ACEB8 /* runLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98AA65A61ACC9C6D001ACEB8 /* runLeft.atlas */; };
+		98AA65A91ACCA352001ACEB8 /* wave.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98AA65A81ACCA352001ACEB8 /* wave.atlas */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		98AA657D1ACC7973001ACEB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98AA655B1ACC7973001ACEB8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 98AA65621ACC7973001ACEB8;
+			remoteInfo = RainbowRun;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		98AA65631ACC7973001ACEB8 /* RainbowRun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainbowRun.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		98AA65671ACC7973001ACEB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98AA65681ACC7973001ACEB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		98AA656A1ACC7973001ACEB8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		98AA656C1ACC7973001ACEB8 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		98AA656E1ACC7973001ACEB8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		98AA65711ACC7973001ACEB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		98AA65731ACC7973001ACEB8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		98AA65761ACC7973001ACEB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		98AA657C1ACC7973001ACEB8 /* RainbowRunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RainbowRunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98AA65811ACC7973001ACEB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98AA65821ACC7973001ACEB8 /* RainbowRunTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainbowRunTests.swift; sourceTree = "<group>"; };
+		98AA658C1ACC7A03001ACEB8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		98AA658E1ACC7A0E001ACEB8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		98AA65961ACC7C61001ACEB8 /* RainbowRunButton.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RainbowRunButton.caf; sourceTree = "<group>"; };
+		98AA65981ACC7CB5001ACEB8 /* InGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGameScene.swift; sourceTree = "<group>"; };
+		98AA659A1ACC9124001ACEB8 /* walk.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = walk.caf; sourceTree = "<group>"; };
+		98AA659E1ACC91BE001ACEB8 /* HelpScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpScene.swift; sourceTree = "<group>"; };
+		98AA65A01ACC91FA001ACEB8 /* Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rainbow.swift; sourceTree = "<group>"; };
+		98AA65A21ACC9246001ACEB8 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
+		98AA65A41ACC9AE6001ACEB8 /* music1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = music1.caf; sourceTree = "<group>"; };
+		98AA65A61ACC9C6D001ACEB8 /* runLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = runLeft.atlas; sourceTree = "<group>"; };
+		98AA65A81ACCA352001ACEB8 /* wave.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = wave.atlas; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		98AA65601ACC7973001ACEB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98AA658F1ACC7A0E001ACEB8 /* GameKit.framework in Frameworks */,
+				98AA658D1ACC7A03001ACEB8 /* AudioToolbox.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98AA65791ACC7973001ACEB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		98AA655A1ACC7973001ACEB8 = {
+			isa = PBXGroup;
+			children = (
+				98AA658E1ACC7A0E001ACEB8 /* GameKit.framework */,
+				98AA658C1ACC7A03001ACEB8 /* AudioToolbox.framework */,
+				98AA65651ACC7973001ACEB8 /* RainbowRun */,
+				98AA657F1ACC7973001ACEB8 /* RainbowRunTests */,
+				98AA65641ACC7973001ACEB8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		98AA65641ACC7973001ACEB8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				98AA65631ACC7973001ACEB8 /* RainbowRun.app */,
+				98AA657C1ACC7973001ACEB8 /* RainbowRunTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		98AA65651ACC7973001ACEB8 /* RainbowRun */ = {
+			isa = PBXGroup;
+			children = (
+				98AA65901ACC7A6D001ACEB8 /* Resources */,
+				98AA65681ACC7973001ACEB8 /* AppDelegate.swift */,
+				98AA656A1ACC7973001ACEB8 /* GameScene.sks */,
+				98AA656E1ACC7973001ACEB8 /* GameViewController.swift */,
+				98AA656C1ACC7973001ACEB8 /* GameScene.swift */,
+				98AA65981ACC7CB5001ACEB8 /* InGameScene.swift */,
+				98AA659E1ACC91BE001ACEB8 /* HelpScene.swift */,
+				98AA65701ACC7973001ACEB8 /* Main.storyboard */,
+				98AA65731ACC7973001ACEB8 /* Images.xcassets */,
+				98AA65751ACC7973001ACEB8 /* LaunchScreen.xib */,
+				98AA65661ACC7973001ACEB8 /* Supporting Files */,
+				98AA65A01ACC91FA001ACEB8 /* Rainbow.swift */,
+				98AA65A21ACC9246001ACEB8 /* CGFloat+Extension.swift */,
+			);
+			path = RainbowRun;
+			sourceTree = "<group>";
+		};
+		98AA65661ACC7973001ACEB8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				98AA65671ACC7973001ACEB8 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		98AA657F1ACC7973001ACEB8 /* RainbowRunTests */ = {
+			isa = PBXGroup;
+			children = (
+				98AA65821ACC7973001ACEB8 /* RainbowRunTests.swift */,
+				98AA65801ACC7973001ACEB8 /* Supporting Files */,
+			);
+			path = RainbowRunTests;
+			sourceTree = "<group>";
+		};
+		98AA65801ACC7973001ACEB8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				98AA65811ACC7973001ACEB8 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		98AA65901ACC7A6D001ACEB8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				98AA65931ACC7A98001ACEB8 /* Images */,
+				98AA65921ACC7A90001ACEB8 /* SFX */,
+				98AA65911ACC7A83001ACEB8 /* Music */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		98AA65911ACC7A83001ACEB8 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				98AA65A41ACC9AE6001ACEB8 /* music1.caf */,
+			);
+			name = Music;
+			sourceTree = "<group>";
+		};
+		98AA65921ACC7A90001ACEB8 /* SFX */ = {
+			isa = PBXGroup;
+			children = (
+				98AA659A1ACC9124001ACEB8 /* walk.caf */,
+				98AA65961ACC7C61001ACEB8 /* RainbowRunButton.caf */,
+			);
+			name = SFX;
+			sourceTree = "<group>";
+		};
+		98AA65931ACC7A98001ACEB8 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				98AA65A81ACCA352001ACEB8 /* wave.atlas */,
+				98AA65A61ACC9C6D001ACEB8 /* runLeft.atlas */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		98AA65621ACC7973001ACEB8 /* RainbowRun */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98AA65861ACC7973001ACEB8 /* Build configuration list for PBXNativeTarget "RainbowRun" */;
+			buildPhases = (
+				98AA655F1ACC7973001ACEB8 /* Sources */,
+				98AA65601ACC7973001ACEB8 /* Frameworks */,
+				98AA65611ACC7973001ACEB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RainbowRun;
+			productName = RainbowRun;
+			productReference = 98AA65631ACC7973001ACEB8 /* RainbowRun.app */;
+			productType = "com.apple.product-type.application";
+		};
+		98AA657B1ACC7973001ACEB8 /* RainbowRunTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98AA65891ACC7973001ACEB8 /* Build configuration list for PBXNativeTarget "RainbowRunTests" */;
+			buildPhases = (
+				98AA65781ACC7973001ACEB8 /* Sources */,
+				98AA65791ACC7973001ACEB8 /* Frameworks */,
+				98AA657A1ACC7973001ACEB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				98AA657E1ACC7973001ACEB8 /* PBXTargetDependency */,
+			);
+			name = RainbowRunTests;
+			productName = RainbowRunTests;
+			productReference = 98AA657C1ACC7973001ACEB8 /* RainbowRunTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98AA655B1ACC7973001ACEB8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Moonwalk Studios";
+				TargetAttributes = {
+					98AA65621ACC7973001ACEB8 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					98AA657B1ACC7973001ACEB8 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 98AA65621ACC7973001ACEB8;
+					};
+				};
+			};
+			buildConfigurationList = 98AA655E1ACC7973001ACEB8 /* Build configuration list for PBXProject "RainbowRun" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 98AA655A1ACC7973001ACEB8;
+			productRefGroup = 98AA65641ACC7973001ACEB8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				98AA65621ACC7973001ACEB8 /* RainbowRun */,
+				98AA657B1ACC7973001ACEB8 /* RainbowRunTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		98AA65611ACC7973001ACEB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98AA65771ACC7973001ACEB8 /* LaunchScreen.xib in Resources */,
+				98AA65A71ACC9C6D001ACEB8 /* runLeft.atlas in Resources */,
+				98AA65741ACC7973001ACEB8 /* Images.xcassets in Resources */,
+				98AA656B1ACC7973001ACEB8 /* GameScene.sks in Resources */,
+				98AA65A51ACC9AE6001ACEB8 /* music1.caf in Resources */,
+				98AA65A91ACCA352001ACEB8 /* wave.atlas in Resources */,
+				98AA659B1ACC9124001ACEB8 /* walk.caf in Resources */,
+				98AA65721ACC7973001ACEB8 /* Main.storyboard in Resources */,
+				98AA65971ACC7C61001ACEB8 /* RainbowRunButton.caf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98AA657A1ACC7973001ACEB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		98AA655F1ACC7973001ACEB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98AA65A11ACC91FA001ACEB8 /* Rainbow.swift in Sources */,
+				98AA656D1ACC7973001ACEB8 /* GameScene.swift in Sources */,
+				98AA656F1ACC7973001ACEB8 /* GameViewController.swift in Sources */,
+				98AA65691ACC7973001ACEB8 /* AppDelegate.swift in Sources */,
+				98AA65991ACC7CB5001ACEB8 /* InGameScene.swift in Sources */,
+				98AA65A31ACC9246001ACEB8 /* CGFloat+Extension.swift in Sources */,
+				98AA659F1ACC91BE001ACEB8 /* HelpScene.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98AA65781ACC7973001ACEB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98AA65831ACC7973001ACEB8 /* RainbowRunTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		98AA657E1ACC7973001ACEB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 98AA65621ACC7973001ACEB8 /* RainbowRun */;
+			targetProxy = 98AA657D1ACC7973001ACEB8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		98AA65701ACC7973001ACEB8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				98AA65711ACC7973001ACEB8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		98AA65751ACC7973001ACEB8 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				98AA65761ACC7973001ACEB8 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		98AA65841ACC7973001ACEB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		98AA65851ACC7973001ACEB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		98AA65871ACC7973001ACEB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RainbowRun/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		98AA65881ACC7973001ACEB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RainbowRun/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		98AA658A1ACC7973001ACEB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RainbowRunTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RainbowRun.app/RainbowRun";
+			};
+			name = Debug;
+		};
+		98AA658B1ACC7973001ACEB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RainbowRunTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RainbowRun.app/RainbowRun";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		98AA655E1ACC7973001ACEB8 /* Build configuration list for PBXProject "RainbowRun" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98AA65841ACC7973001ACEB8 /* Debug */,
+				98AA65851ACC7973001ACEB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98AA65861ACC7973001ACEB8 /* Build configuration list for PBXNativeTarget "RainbowRun" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98AA65871ACC7973001ACEB8 /* Debug */,
+				98AA65881ACC7973001ACEB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		98AA65891ACC7973001ACEB8 /* Build configuration list for PBXNativeTarget "RainbowRunTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98AA658A1ACC7973001ACEB8 /* Debug */,
+				98AA658B1ACC7973001ACEB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 98AA655B1ACC7973001ACEB8 /* Project object */;
+}
