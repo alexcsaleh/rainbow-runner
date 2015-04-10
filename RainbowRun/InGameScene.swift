@@ -252,6 +252,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
 
     func checkCollisions(){
         
+        // TODO don't check collision for rainbows with alpha < 1
         var blackHitRainbows: [SKSpriteNode] = []
         enumerateChildNodesWithName(RainbowsType.Black.rawValue) { node, _ in
             let rainbow = node as SKSpriteNode
@@ -534,7 +535,10 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
             rainbow.position.y -= CGFloat(Rainbows.Speed.rawValue)
             abs = rainbow.position.y + self.size.height
             
-            if abs < 0{
+            println("the ABS value is \(abs)")
+            
+            // TODO instead of an hardcoded value calculate the Y of the floor
+            if abs < 700{
                 
                 rainbow.fadeOut(timeInterval)
                 
