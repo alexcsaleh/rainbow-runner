@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5973321F1ADAA9DD00CFC6D7 /* waveMedium.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5973321C1ADAA9DD00CFC6D7 /* waveMedium.atlas */; };
+		597332201ADAA9DD00CFC6D7 /* waveSmall.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5973321D1ADAA9DD00CFC6D7 /* waveSmall.atlas */; };
+		597332211ADAA9DD00CFC6D7 /* DeathAnimation.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5973321E1ADAA9DD00CFC6D7 /* DeathAnimation.atlas */; };
 		98AA65691ACC7973001ACEB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA65681ACC7973001ACEB8 /* AppDelegate.swift */; };
 		98AA656B1ACC7973001ACEB8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 98AA656A1ACC7973001ACEB8 /* GameScene.sks */; };
 		98AA656D1ACC7973001ACEB8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA656C1ACC7973001ACEB8 /* GameScene.swift */; };
@@ -39,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5973321C1ADAA9DD00CFC6D7 /* waveMedium.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = waveMedium.atlas; sourceTree = "<group>"; };
+		5973321D1ADAA9DD00CFC6D7 /* waveSmall.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = waveSmall.atlas; sourceTree = "<group>"; };
+		5973321E1ADAA9DD00CFC6D7 /* DeathAnimation.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = DeathAnimation.atlas; sourceTree = "<group>"; };
 		98AA65631ACC7973001ACEB8 /* RainbowRun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainbowRun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AA65671ACC7973001ACEB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98AA65681ACC7973001ACEB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +185,9 @@
 		98AA65931ACC7A98001ACEB8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5973321C1ADAA9DD00CFC6D7 /* waveMedium.atlas */,
+				5973321D1ADAA9DD00CFC6D7 /* waveSmall.atlas */,
+				5973321E1ADAA9DD00CFC6D7 /* DeathAnimation.atlas */,
 				98AA65A81ACCA352001ACEB8 /* wave.atlas */,
 				98AA65A61ACC9C6D001ACEB8 /* runLeft.atlas */,
 			);
@@ -267,11 +276,14 @@
 			files = (
 				98AA65771ACC7973001ACEB8 /* LaunchScreen.xib in Resources */,
 				98AA65A71ACC9C6D001ACEB8 /* runLeft.atlas in Resources */,
+				597332201ADAA9DD00CFC6D7 /* waveSmall.atlas in Resources */,
 				98AA65741ACC7973001ACEB8 /* Images.xcassets in Resources */,
 				98AA656B1ACC7973001ACEB8 /* GameScene.sks in Resources */,
+				597332211ADAA9DD00CFC6D7 /* DeathAnimation.atlas in Resources */,
 				98AA65A51ACC9AE6001ACEB8 /* music1.caf in Resources */,
 				98AA65A91ACCA352001ACEB8 /* wave.atlas in Resources */,
 				98AA659B1ACC9124001ACEB8 /* walk.caf in Resources */,
+				5973321F1ADAA9DD00CFC6D7 /* waveMedium.atlas in Resources */,
 				98AA65721ACC7973001ACEB8 /* Main.storyboard in Resources */,
 				98AA65971ACC7C61001ACEB8 /* RainbowRunButton.caf in Resources */,
 			);
@@ -491,6 +503,7 @@
 				98AA65881ACC7973001ACEB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		98AA65891ACC7973001ACEB8 /* Build configuration list for PBXNativeTarget "RainbowRunTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +512,7 @@
 				98AA658B1ACC7973001ACEB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
