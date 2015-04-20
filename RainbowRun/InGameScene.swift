@@ -17,23 +17,18 @@ import AVFoundation
 
 class InGameScene: SKScene, SKPhysicsContactDelegate {
     
-    
-    
     let floor = SKSpriteNode(imageNamed: "floor")
-    
     let hero: SKSpriteNode
     
     let rainbowTextures = SKTexture()
     
-
+    let screenSize: CGRect = UIScreen.mainScreen().bounds
     
     // The maximum left x value of the screen
-    var frameMaxLeft:CGFloat = -144
-    var frameMaxRight:CGFloat = 144
+    var frameMaxLeft:CGFloat?
+    var frameMaxRight:CGFloat?
     
     let rainbow = SKTexture(imageNamed: "rainbow")
-    
-    
     var scoreText = SKLabelNode(fontNamed: "Chalkduster")
     
     var origRunningFloorPositionXPoint = CGFloat(0)
@@ -42,7 +37,10 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     
     var heroBaseline = CGFloat(0)
     
-    //var onGround = true
+    //array for running wave textures
+    var waveTexturesMedium = [SKTexture]()
+    var waveTexturesSmall = [SKTexture]()
+    var waveTexturesLarge = [SKTexture]()
     
     let walkSound = SKAction.playSoundFileNamed("walk.caf", waitForCompletion: false)
     
@@ -55,18 +53,8 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     // Array for running hero textures
     var runningHeroTextures = [SKTexture]()
     
-    
-    
-    
     // Waves in the ocean
     let waveLarge: SKSpriteNode
-    
-    
-    //array for running wave textures
-    var waveTexturesLarge = [SKTexture]()
-    
-    
-    
     
     // Movement of hero left
     var heroMovingLeft = false
@@ -76,13 +64,11 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     // Hero walking Speed
     var heroSpeed:CGFloat = 2.5
     
-    
     enum ColliderType:UInt32 { // The types of object that can collide
         case Hero = 1
         case Rainbow = 2
         case DarkRainbow = 3
     }
-    
     
     var rainbows:[Rainbow] = []
     enum Rainbows:Int { // Data about the rainbow generation
@@ -91,7 +77,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         case Distance = 112
         case Speed = 3
         case Delay =  55 //49 //38
-        case TopDistance = 100
+        
     }
     
     enum RainbowsType:String{
@@ -104,17 +90,43 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     var delayer = 0
     let positions:Array<Int> = [-143, -96, -48, 0, 48, 96, 143] // Spawning positions for the rainbows
     
+    override init(size: CGSize) {
+        
+        self.waveLarge = SKSpriteNode(texture: SKTexture(imageNamed: "wave0"))
+        self.waveLarge.position = CGPoint(x: 85, y: -63)
+        //self.waveMedium = SKSpriteNode(texture: SKTexture(imageNamed: "wave0"))
+        //self.waveMedium.position = CGPoint(x: 129, y: -80)
+        //self.waveSmall = SKSpriteNode(texture: SKTexture(imageNamed: "wave_0"))
+        //self.waveSmall.position = CGPoint(x: -88, y: -50)
+        self.hero = SKSpriteNode(texture: SKTexture(imageNamed: "left_0"))
+        self.hero.size.width = self.hero.size.width / 2
+        self.hero.size.height = self.hero.size.height / 2
+        self.hero.name = "hero"
+        
+        let halfHero =  hero.size.width / 2
+        frameMaxLeft = -(screenSize.width/2) + halfHero
+        frameMaxRight = screenSize.width / 2 - halfHero
+
+        super.init(size: size)
+        
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func didMoveToView(view: SKView) {
         println("We are at the new scene!")
+        
+        self.anchorPoint = CGPointMake(0.5, 0.0)
         
         loadLevel()
         
         self.physicsWorld.contactDelegate = self
         
-        //the anchorpoint of the spawningbar
-        self.floor.anchorPoint = CGPointMake(0, 0.5) //(0.15, 0.5)
-        
+        // The anchorpoint of the spawningbar
+        self.floor.anchorPoint = CGPointMake(0, 0.5)
         
         // The position of the floor
         self.floor.position = CGPointMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame) + (self.floor.size.height / 2))
@@ -124,11 +136,11 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         self.maxBarX *= -1
         
         // Position of the baseline(where the hero walk on top of)
-        self.heroBaseline = self.floor.position.y - 78
+        self.heroBaseline = self.floor.position.y + self.floor.size.height
         
         // Starting position of the hero
-        self.hero.position =  CGPointMake(CGRectGetMinX(self.frame) + (self.hero.size.width / 0.34), (self.heroBaseline))
-        
+        self.hero.anchorPoint = CGPointMake(0.5, 0)
+        self.hero.position = CGPointMake(0, floor.size.height - 30)
         
         /* Enable the physics*/
         self.hero.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(self.hero.size.width / 2))
@@ -156,18 +168,22 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    
-    
-    
-    
-    
-    
+    func didBeginContact(contact:SKPhysicsContact){
+        let node1:SKNode = contact.bodyA.node!
+        let node2:SKNode = contact.bodyB.node!
+        //
+        println("the \(contact.bodyA) is touching the \(contact.bodyB)")
+
+    }
     
     /* Function that loads the InGameScene level and all of its textures */
     func loadLevel() {
+        
         addBG()
+        
         loadAllWaveTextures()
         runWaveAnimations()
+        
         loadHeroTextures()
         loadHeroMovement()
         
@@ -175,11 +191,37 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func loadAllWaveTextures() {
-        loadLargeWaveTextures()
+      
+        waveTexturesLarge = loadAtlasTextures(atlas: "wave", count: 2)
+        waveTexturesMedium = loadAtlasTextures(atlas: "waveMedium", count: 2)
+        waveTexturesSmall = loadAtlasTextures(atlas: "waveSmall", count: 2)
+
+    }
+    
+    func loadAtlasTextures(#atlas:String, count:Int) -> [SKTexture]{
+    
+        var waves = [SKTexture]()
+    
+        var waveAtlas = SKTextureAtlas(named: atlas)
+        
+        for i in 0..<count {
+    
+            var textureName = atlas + i.description
+            var temp = waveAtlas.textureNamed(textureName)
+            waves.append(temp)
+        }
+    
+        return waves;
+    
     }
     
     func runWaveAnimations(){
-        runWaveLarge()
+        runAtlasAnimation()
+    }
+    
+    // TODO send the atlases, and the nodes
+    func runAtlasAnimation() {
+        waveLarge.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(waveTexturesLarge, timePerFrame: 1.00, resize: false, restore: true)), withKey: "runWave1")
     }
     
     
@@ -214,26 +256,18 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func addBG() { // adding the same background func from the GameScene swift file(1st scene)
+        
         var background = SKSpriteNode(imageNamed: "background")
+        
+        background.anchorPoint = CGPointMake(0.5, 0)
+        
         background.size.width = self.frame.size.width
         background.size.height = self.frame.size.height
-        background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
-        addChild(background)
-    }
-    
-    
-    
-    func loadLargeWaveTextures() {
-        var waveAtlas = SKTextureAtlas(named: "wave")
+        background.position = CGPointMake(CGRectGetMidX(self.frame), 0)
         
-        for i in 0...1 {
-            var textureName = "wave\(i)"
-            var temp = waveAtlas.textureNamed(textureName)
-            waveTexturesLarge.append(temp)
-        }
-    }
+        addChild(background)
     
-   
+    }
     
     
     // This will start running the wave loop
@@ -256,7 +290,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         var blackHitRainbows: [SKSpriteNode] = []
         enumerateChildNodesWithName(RainbowsType.Black.rawValue) { node, _ in
             let rainbow = node as SKSpriteNode
-            if CGRectIntersectsRect(rainbow.frame, self.hero.frame) {
+            if CGRectIntersectsRect(rainbow.frame, self.hero.frame) && rainbow.alpha >= 1 {
                 blackHitRainbows.append(rainbow)
             }
         }
@@ -479,8 +513,8 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
+            
             let distance = CGFloat(Rainbows.Distance.rawValue)
-            let topDistance = CGFloat(Rainbows.TopDistance.rawValue)
             let width = self.frame.size.width
             let random = Int(arc4random_uniform(UInt32(positions.count)))
             
@@ -489,7 +523,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
             if rainbows.count == 0 {
                 
                 positionX = CGFloat(positions[random])// CGFloat.random(min: -width + texture.size().width, max: width - (distance * 3))
-                current = Rainbow(position: CGPoint(x: positionX, y: texture.size().height + topDistance), texture: texture, index: rainbows.count)
+                current = Rainbow(position: CGPoint(x: positionX, y: texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
                 
                 rainbows.insert(current, atIndex: 0)
                 
@@ -506,7 +540,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 positionX = CGFloat(positions[random])// CGFloat.random(min: min, max: max)
-                current = Rainbow(position: CGPoint(x: positionX, y:  texture.size().height + topDistance), texture: texture, index: rainbows.count)
+                current = Rainbow(position: CGPoint(x: positionX, y:  texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
                 
                 rainbows.insert(current, atIndex: 0)
             }
@@ -514,6 +548,8 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
             delayer = 0
             
             current.name = spriteName
+            current.currentTarget = floor
+            
             addChild(current)
             
         }
@@ -530,15 +566,17 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         var abs:CGFloat, found: Int?
         let timeInterval:NSTimeInterval = 0.35
         
+     //   let floorY =
+        
         for rainbow:Rainbow in rainbows{
             
             rainbow.position.y -= CGFloat(Rainbows.Speed.rawValue)
-            abs = rainbow.position.y + self.size.height
+            abs = rainbow.position.y
             
-            println("the ABS value is \(abs)")
-            
+            rainbow.update()
+           
             // TODO instead of an hardcoded value calculate the Y of the floor
-            if abs < 700{
+            if abs < hero.position.y {
                 
                 rainbow.fadeOut(timeInterval)
                 
@@ -591,35 +629,6 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         heroMovingLeft = false
         
     }
-    
-    
-    
-    
-    
-    
-    override init(size: CGSize) {
-        self.waveLarge = SKSpriteNode(texture: SKTexture(imageNamed: "wave0"))
-        self.waveLarge.position = CGPoint(x: 85, y: -63)
-        //self.waveMedium = SKSpriteNode(texture: SKTexture(imageNamed: "wave0"))
-        //self.waveMedium.position = CGPoint(x: 129, y: -80)
-        //self.waveSmall = SKSpriteNode(texture: SKTexture(imageNamed: "wave_0"))
-        //self.waveSmall.position = CGPoint(x: -88, y: -50)
-        self.hero = SKSpriteNode(texture: SKTexture(imageNamed: "left_0"))
-        self.hero.size.width = self.hero.size.width / 2
-        self.hero.size.height = self.hero.size.height / 2
-        self.hero.name = "hero"
-        
-        super.init(size: size)
-    }
-    
-    
-    
-    
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     
     
     

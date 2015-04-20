@@ -13,10 +13,13 @@ class Rainbow: SKSpriteNode {
     
     var direction = CGPointZero
     var index:Int = 0
+    var currentTarget:SKSpriteNode!
     
     init(position: CGPoint, texture: SKTexture, index:Int) {
         
         super.init(texture: texture, color: SKColor.whiteColor(), size: texture.size())
+        
+        self.anchorPoint = CGPointMake(0.5, 0)
         
         self.position = position
         self.index = index
@@ -28,8 +31,25 @@ class Rainbow: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var collisionTarget:SKSpriteNode{
+        set {
+            currentTarget = newValue
+        }
+        get {
+            return currentTarget
+        }
+    }
     
-    func update(delta: NSTimeInterval) {
+    func update() {
+        //println("test \(target)")
+        
+        if let target = currentTarget {
+            
+            println("tg.y \(target.position.y)")
+            println("self.y \(self.position.y)")
+            println("--")
+            
+        }
         
     }
     
