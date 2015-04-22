@@ -70,6 +70,29 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         case DarkRainbow = 3
     }
     
+    enum UIUserInterfaceIdiom : Int
+    {
+        case Unspecified
+        case Phone
+        case Pad
+    }
+    
+    struct ScreenSize
+    {
+        static let SCREEN_WIDTH = UIScreen.mainScreen().bounds.size.width
+        static let SCREEN_HEIGHT = UIScreen.mainScreen().bounds.size.height
+        static let SCREEN_MAX_LENGTH = max(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
+        static let SCREEN_MIN_LENGTH = min(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
+    }
+    
+    struct DeviceType
+    {
+        static let IS_IPHONE_4_OR_LESS =  UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH < 568.0
+        static let IS_IPHONE_5 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
+        static let IS_IPHONE_6 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
+        static let IS_IPHONE_6P = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
+    }
+    
     var rainbows:[Rainbow] = []
     enum Rainbows:Int { // Data about the rainbow generation
         
@@ -88,7 +111,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     var delayer = 0
-    let positions:Array<Int> = [-143, -96, -48, 0, 48, 96, 143] // Spawning positions for the rainbows
+    let positions:Array<Position> = [Position(x: -143), Position(x: -96), Position(x: -48), Position(x: 0), Position(x: 48), Position(x: 96), Position(x: 143)] // Spawning positions for the rainbows
     
     override init(size: CGSize) {
         
@@ -140,7 +163,14 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         
         // Starting position of the hero
         self.hero.anchorPoint = CGPointMake(0.5, 0)
-        self.hero.position = CGPointMake(0, floor.size.height - 30)
+        
+        var diff:CGFloat = 30.0
+        
+        if DeviceType.IS_IPHONE_6P{
+            diff = 40.0
+        }
+        
+        self.hero.position = CGPointMake(0, floor.size.height - diff)
         
         /* Enable the physics*/
         self.hero.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(self.hero.size.width / 2))
@@ -513,16 +543,15 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
-            
             let distance = CGFloat(Rainbows.Distance.rawValue)
             let width = self.frame.size.width
-            let random = Int(arc4random_uniform(UInt32(positions.count)))
+            let random = generateRandomRainbowPosition()
             
             println("the \(texture.description) rainbow will be positioned at index \(random)")
             
             if rainbows.count == 0 {
                 
-                positionX = CGFloat(positions[random])// CGFloat.random(min: -width + texture.size().width, max: width - (distance * 3))
+                positionX = CGFloat(positions[random].x)// CGFloat.random(min: -width + texture.size().width, max: width - (distance * 3))
                 current = Rainbow(position: CGPoint(x: positionX, y: texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
                 
                 rainbows.insert(current, atIndex: 0)
@@ -539,7 +568,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                     
                 }
                 
-                positionX = CGFloat(positions[random])// CGFloat.random(min: min, max: max)
+                positionX = CGFloat(positions[random].x)// CGFloat.random(min: min, max: max)
                 current = Rainbow(position: CGPoint(x: positionX, y:  texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
                 
                 rainbows.insert(current, atIndex: 0)
@@ -558,9 +587,29 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    
-    
-    
+    func generateRandomRainbowPosition() -> Int{
+        
+        var index:Int = 0
+        var freeIndexes:[Int] = []
+        
+        for i in 0..<positions.count{
+        
+            let position = positions[i]
+            
+            if !position.used{
+                
+                freeIndexes.append(i)
+                
+            }
+            
+        }
+        
+        var random = Int(arc4random_uniform(UInt32(freeIndexes.count)))
+        positions[random].used = true
+        
+        return freeIndexes[random]
+       
+    }
     
     func moveAndCheckRainbows(){
         var abs:CGFloat, found: Int?
@@ -587,6 +636,14 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 if let index = found{
+                    
+                    let used = positions.filter { (position) in
+                        
+                        let match = self.positions[index].x
+                        return position.x == match
+                    
+                    }
+                    used[0].used = false
                     
                     rainbows.removeAtIndex(index)
                     
