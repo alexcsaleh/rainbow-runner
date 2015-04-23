@@ -103,6 +103,8 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    let delays = [55, 49, 38]
+    
     enum RainbowsType:String{
         
         case Black = "blackrainbow"
@@ -506,13 +508,11 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
-        if count > 4 {
+        if count > 3 {
             
             value = false
             
         }
-        
-        println(count)
         
         return value
         
@@ -547,49 +547,55 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
             let width = self.frame.size.width
             let random = generateRandomRainbowPosition()
             
-            println("the \(texture.description) rainbow will be positioned at index \(random)")
+            if random >= 0 {
             
-            if rainbows.count == 0 {
+                // println("the \(texture.description) rainbow will be positioned at index \(random)")
                 
-                positionX = CGFloat(positions[random].x)// CGFloat.random(min: -width + texture.size().width, max: width - (distance * 3))
-                current = Rainbow(position: CGPoint(x: positionX, y: texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
-                
-                rainbows.insert(current, atIndex: 0)
-                
-            }else{
-                
-                let lastRainbow:Rainbow = rainbows.first!
-                var min = lastRainbow.position.x + distance
-                var max = width - distance
-                
-                if(min > max || (min + distance > max)){
+                if rainbows.count == 0 {
                     
-                    min  = CGFloat.random(min: -width/2, max: lastRainbow.position.x)
+                    positionX = CGFloat(positions[random].x)// CGFloat.random(min: -width + texture.size().width, max: width - (distance * 3))
+                    current = Rainbow(position: CGPoint(x: positionX, y: texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
                     
+                    rainbows.insert(current, atIndex: 0)
+                    
+                }else{
+                    
+                    let lastRainbow:Rainbow = rainbows.first!
+                    var min = lastRainbow.position.x + distance
+                    var max = width - distance
+                    
+                    if(min > max || (min + distance > max)){
+                        
+                        min  = CGFloat.random(min: -width/2, max: lastRainbow.position.x)
+                        
+                    }
+                    
+                    positionX = CGFloat(positions[random].x)// CGFloat.random(min: min, max: max)
+                    current = Rainbow(position: CGPoint(x: positionX, y:  texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
+                    
+                    rainbows.insert(current, atIndex: 0)
                 }
                 
-                positionX = CGFloat(positions[random].x)// CGFloat.random(min: min, max: max)
-                current = Rainbow(position: CGPoint(x: positionX, y:  texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
+                delayer = 0
                 
-                rainbows.insert(current, atIndex: 0)
+                current.name = spriteName
+                current.currentTarget = floor
+                
+                addChild(current)
+                
             }
-            
-            delayer = 0
-            
-            current.name = spriteName
-            current.currentTarget = floor
-            
-            addChild(current)
             
         }
         
         delayer++
+        
     }
     
     
     func generateRandomRainbowPosition() -> Int{
         
         var index:Int = 0
+        var value:Int
         var freeIndexes:[Int] = []
         
         for i in 0..<positions.count{
@@ -604,54 +610,78 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
-        var random = Int(arc4random_uniform(UInt32(freeIndexes.count)))
-        positions[random].used = true
+        if freeIndexes.count > 0 {
         
-        return freeIndexes[random]
+            var random = Int(arc4random_uniform(UInt32(freeIndexes.count)))
+            positions[random].used = true
+        
+            println("\n the available positions are \(freeIndexes) \n the random index is \(random)\n and the value is \(freeIndexes[random]) \n")
+        
+            value = freeIndexes[random]
+            
+        }else{
+            
+            value = -1
+            
+        }
+        
+        return value
+        
        
     }
     
     func moveAndCheckRainbows(){
         var abs:CGFloat, found: Int?
         let timeInterval:NSTimeInterval = 0.35
-        
-     //   let floorY =
-        
+    
         for rainbow:Rainbow in rainbows{
             
-            rainbow.position.y -= CGFloat(Rainbows.Speed.rawValue)
-            abs = rainbow.position.y
+            if !rainbow.colliding{
             
-            rainbow.update()
-           
-            // TODO instead of an hardcoded value calculate the Y of the floor
-            if abs < hero.position.y {
+                rainbow.position.y -= CGFloat(Rainbows.Speed.rawValue)
+                abs = rainbow.position.y
                 
-                rainbow.fadeOut(timeInterval)
-                
-                for i in 0..<rainbows.count {
-                    if rainbows[i] == rainbow {
-                        found = i
-                    }
-                }
-                
-                if let index = found{
+                rainbow.update()
+               
+                // TODO instead of an hardcoded value calculate the Y of the floor
+                if abs < hero.position.y {
+                   
+                  //  println("I got a collision \(timeInterval)")
+
+                    rainbow.fadeOut(timeInterval)
+                    rainbow.colliding = true
                     
-                    let used = positions.filter { (position) in
+                    Timer.start(timeInterval*5, repeats: false, handler: { (t: NSTimer) in
                         
-                        let match = self.positions[index].x
-                        return position.x == match
-                    
-                    }
-                    used[0].used = false
-                    
-                    rainbows.removeAtIndex(index)
+                        for i in 0..<self.rainbows.count {
+                            if self.rainbows[i] == rainbow {
+                                found = i
+                            }
+                        }
+                        
+                        if let index = found{
+                            
+                            let match = self.positions[index].x
+                            
+                            for i in 0..<self.positions.count{
+                                
+                                if self.positions[i].x == match{
+                                    self.positions[i].used = false
+                                }
+                                
+                            }
+                            
+                        //  println("I updated the the position status")
+                            self.rainbows.removeAtIndex(index)
+                        
+                                
+                        }
+                        
+
+                    })
                     
                 }
-                
             }
-            //if rainbow.position.y >
-            // println("I am at \(rainbow.position.y) and the size is \(self.size.height)")
             
         }
     }

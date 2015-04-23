@@ -14,6 +14,7 @@ class Rainbow: SKSpriteNode {
     var direction = CGPointZero
     var index:Int = 0
     var currentTarget:SKSpriteNode!
+    var colliding = false
     
     init(position: CGPoint, texture: SKTexture, index:Int) {
         
@@ -42,14 +43,6 @@ class Rainbow: SKSpriteNode {
     
     func update() {
         //println("test \(target)")
-        
-        if let target = currentTarget {
-            
-            println("tg.y \(target.position.y)")
-            println("self.y \(self.position.y)")
-            println("--")
-            
-        }
         
     }
     
