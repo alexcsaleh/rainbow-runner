@@ -113,7 +113,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     var delayer = 0
-    let positions:Array<Slot> = [Slot(x: -143), Slot(x: -96), Slot(x: -48), Slot(x: 0), Slot(x: 48), Slot(x: 96), Slot(x: 143)] // Spawning positions for the rainbows
+    let availableSlots:Array<Slot> = [Slot(x: -143), Slot(x: -96), Slot(x: -48), Slot(x: 0), Slot(x: 48), Slot(x: 96), Slot(x: 143)] // Spawning positions for the rainbows
     
     override init(size: CGSize) {
         
@@ -545,15 +545,15 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
             
             let distance = CGFloat(Rainbows.Distance.rawValue)
             let width = self.frame.size.width
-            let random = generateRandomRainbowPosition()
+            let randomSlot:Slot? = generateRandomRainbowPosition()
             
-            if random >= 0 {
+            if let slot = randomSlot {
             
                 // println("the \(texture.description) rainbow will be positioned at index \(random)")
                 
                 if rainbows.count == 0 {
                     
-                    positionX = CGFloat(positions[random].x)// CGFloat.random(min: -width + texture.size().width, max: width - (distance * 3))
+                    positionX = CGFloat(slot.x)// CGFloat.random(min: -width + texture.size().width, max: width - (distance * 3))
                     current = Rainbow(position: CGPoint(x: positionX, y: texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
                     
                     rainbows.insert(current, atIndex: 0)
@@ -570,7 +570,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                         
                     }
                     
-                    positionX = CGFloat(positions[random].x)// CGFloat.random(min: min, max: max)
+                    positionX = CGFloat(slot.x)// CGFloat.random(min: min, max: max)
                     current = Rainbow(position: CGPoint(x: positionX, y:  texture.size().height + (frame.height / 2)), texture: texture, index: rainbows.count)
                     
                     rainbows.insert(current, atIndex: 0)
@@ -579,9 +579,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                 delayer = 0
                 
                 current.name = spriteName
-                current.currentTarget = floor
-               
-                current.slot = positions[random]
+                current.slot = slot
                 
                 addChild(current)
                 
@@ -594,43 +592,42 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func generateRandomRainbowPosition() -> Int{
+    func generateRandomRainbowPosition() -> Slot?{
         
-        var index:Int = 0
-        var value:Int
-        var freeIndexes:[Int] = []
+        var value:Slot?
+        var freeSlots:[Slot] = []
         
-        for i in 0..<positions.count{
+        for i in 0..<availableSlots.count{
         
-            let position = positions[i]
+            let slot = availableSlots[i]
             
-            if position.used == false{
+            if slot.used == false{
                 
-                freeIndexes.append(i)
+                freeSlots.append(slot)
                 
             }
             
         }
         
         var current:[Bool] = [];
-        for p in positions{
+        for p in availableSlots{
             current.append(p.used)
         }
         
         println("the status of the FR is \(current)")
         
-        if freeIndexes.count > 0 {
+        if freeSlots.count > 0 {
         
-            var random = Int(arc4random_uniform(UInt32(freeIndexes.count)))
-            positions[random].used = true
+            var random = Int(arc4random_uniform(UInt32(freeSlots.count)))
+            freeSlots[random].used = true
         
-            println("\n the available positions are \(freeIndexes) \n the random index is \(random)\n and the value is \(freeIndexes[random]) \n")
+            var slotters:[Float] = []
+            for s in freeSlots{
+                slotters.append(s.x)
+            }
+            println("\n the available positions are \(slotters) \n the random index is \(random)\n and the value is \(freeSlots[random].x) \n")
         
-            value = freeIndexes[random]
-            
-        }else{
-            
-            value = -1
+            value = freeSlots[random]
             
         }
         
@@ -654,38 +651,30 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                
                 // TODO instead of an hardcoded value calculate the Y of the floor
                 if abs < hero.position.y {
-                   
-                  //  println("I got a collision \(timeInterval)")
-                    
-                    rainbows = rainbows.filter({ $0 != rainbow })
-                    
+
                     rainbow.fadeOut(timeInterval)
                     rainbow.colliding = true
                     
-                    for slot in positions{
-                        
-                        if slot.id == rainbow.slot.id{
+                    if let index = find(availableSlots, rainbow.slot) {
+                   
+                        if availableSlots[index].used {
+                            println("I am searching for \(index)")
+                            availableSlots[index].used = false
                             
-                            slot.used = false
-                            break
                         }
                         
+                        if let rainbowIndex = find(rainbows, rainbow){
+                            rainbows.removeAtIndex(rainbowIndex)
+                        }
+                        
+                        break
                     }
                     
-                    rainbow.currentSlot?.used = false
-                    
-                    
                 }
-            }
             
+            }
         }
     }
-    
-    
-    
-    
-    
-    
     
     
     

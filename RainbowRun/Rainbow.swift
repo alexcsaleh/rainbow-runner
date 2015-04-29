@@ -13,7 +13,6 @@ class Rainbow: SKSpriteNode {
     
     var direction = CGPointZero
     var index:Int = 0
-    var currentTarget:SKSpriteNode!
     var colliding = false
     var currentSlot:Slot?
     
@@ -33,15 +32,6 @@ class Rainbow: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var collisionTarget:SKSpriteNode{
-        set {
-            currentTarget = newValue
-        }
-        get {
-            return currentTarget
-        }
-    }
-    
     func update() {
         //println("test \(target)")
         
@@ -50,7 +40,7 @@ class Rainbow: SKSpriteNode {
     func fadeOut(duration:NSTimeInterval){
         
         runAction(SKAction.sequence([
-            SKAction.fadeOutWithDuration(1),
+            SKAction.fadeOutWithDuration(duration),
             SKAction.runBlock({ self.freeItem()}),
             SKAction.removeFromParent()]))
       

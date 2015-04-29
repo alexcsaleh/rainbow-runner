@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Slot{
+class Slot:Equatable{
     
     var x:Float
     var id:UInt32
@@ -17,8 +17,14 @@ class Slot{
     init (x:Float){
     
         self.x = x
-        self.id = UInt32(0.175 * Float(100))
+        self.id = arc4random_uniform(200)
     
     }
+    
+}
+
+func ==(lhs: Slot, rhs: Slot) -> Bool{
+    
+    return lhs.id == rhs.id && lhs.x == rhs.x
     
 }
