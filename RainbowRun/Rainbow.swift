@@ -15,6 +15,7 @@ class Rainbow: SKSpriteNode {
     var index:Int = 0
     var currentTarget:SKSpriteNode!
     var colliding = false
+    var currentSlot:Slot?
     
     init(position: CGPoint, texture: SKTexture, index:Int) {
         
@@ -50,10 +51,27 @@ class Rainbow: SKSpriteNode {
         
         runAction(SKAction.sequence([
             SKAction.fadeOutWithDuration(1),
+            SKAction.runBlock({ self.freeItem()}),
             SKAction.removeFromParent()]))
-        
+      
     }
     
+    private func freeItem(){
+    
+        colliding = false
+    
+    }
+    
+    var slot:Slot {
+        
+        get {
+            return currentSlot!
+        }
+        set{
+            currentSlot = newValue
+        }
+        
+    }
     var isBlack: Bool {
         get {
             return texture?.description.rangeOfString("black") != nil

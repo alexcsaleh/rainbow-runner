@@ -8,14 +8,16 @@
 
 import Foundation
 
-class Position{
+class Slot{
     
     var x:Float
+    var id:UInt32
     var used:Bool = false
     
     init (x:Float){
     
         self.x = x
+        self.id = UInt32(0.175 * Float(100))
     
     }
     

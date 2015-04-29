@@ -96,7 +96,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     var rainbows:[Rainbow] = []
     enum Rainbows:Int { // Data about the rainbow generation
         
-        case Max = 5
+        case Max = 4
         case Distance = 112
         case Speed = 3
         case Delay =  55 //49 //38
@@ -113,7 +113,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     var delayer = 0
-    let positions:Array<Position> = [Position(x: -143), Position(x: -96), Position(x: -48), Position(x: 0), Position(x: 48), Position(x: 96), Position(x: 143)] // Spawning positions for the rainbows
+    let positions:Array<Slot> = [Slot(x: -143), Slot(x: -96), Slot(x: -48), Slot(x: 0), Slot(x: 48), Slot(x: 96), Slot(x: 143)] // Spawning positions for the rainbows
     
     override init(size: CGSize) {
         
@@ -524,7 +524,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     func generateRainbows(){
         
         // Generate a new Rainbow
-        if rainbows.count <= Rainbows.Max.rawValue && delayer >= Rainbows.Delay.rawValue{
+        if rainbows.count < Rainbows.Max.rawValue && delayer >= Rainbows.Delay.rawValue{
             
             var positionX: CGFloat
             var current:Rainbow
@@ -580,6 +580,8 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                 
                 current.name = spriteName
                 current.currentTarget = floor
+               
+                current.slot = positions[random]
                 
                 addChild(current)
                 
@@ -602,13 +604,20 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         
             let position = positions[i]
             
-            if !position.used{
+            if position.used == false{
                 
                 freeIndexes.append(i)
                 
             }
             
         }
+        
+        var current:[Bool] = [];
+        for p in positions{
+            current.append(p.used)
+        }
+        
+        println("the status of the FR is \(current)")
         
         if freeIndexes.count > 0 {
         
@@ -626,11 +635,11 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         return value
-        
        
     }
     
     func moveAndCheckRainbows(){
+        
         var abs:CGFloat, found: Int?
         let timeInterval:NSTimeInterval = 0.35
     
@@ -647,38 +656,24 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                 if abs < hero.position.y {
                    
                   //  println("I got a collision \(timeInterval)")
-
+                    
+                    rainbows = rainbows.filter({ $0 != rainbow })
+                    
                     rainbow.fadeOut(timeInterval)
                     rainbow.colliding = true
                     
-                    Timer.start(timeInterval*5, repeats: false, handler: { (t: NSTimer) in
+                    for slot in positions{
                         
-                        for i in 0..<self.rainbows.count {
-                            if self.rainbows[i] == rainbow {
-                                found = i
-                            }
+                        if slot.id == rainbow.slot.id{
+                            
+                            slot.used = false
+                            break
                         }
                         
-                        if let index = found{
-                            
-                            let match = self.positions[index].x
-                            
-                            for i in 0..<self.positions.count{
-                                
-                                if self.positions[i].x == match{
-                                    self.positions[i].used = false
-                                }
-                                
-                            }
-                            
-                        //  println("I updated the the position status")
-                            self.rainbows.removeAtIndex(index)
-                        
-                                
-                        }
-                        
-
-                    })
+                    }
+                    
+                    rainbow.currentSlot?.used = false
+                    
                     
                 }
             }
