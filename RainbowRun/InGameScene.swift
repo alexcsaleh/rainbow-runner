@@ -103,7 +103,8 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    let delays = [55, 49, 38]
+    let rainbowDelays:[Int] = [55, 49, 38]
+    var currentDelay:Int?
     
     enum RainbowsType:String{
         
@@ -131,7 +132,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         let halfHero =  hero.size.width / 2
         frameMaxLeft = -(screenSize.width/2) + halfHero
         frameMaxRight = screenSize.width / 2 - halfHero
-
+   
         super.init(size: size)
         
     }
@@ -146,6 +147,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
         
         self.anchorPoint = CGPointMake(0.5, 0.0)
         
+        currentDelay = generateDelay()
         loadLevel()
         
         self.physicsWorld.contactDelegate = self
@@ -266,7 +268,15 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-    
+    func generateDelay() -> Int{
+        
+        var value = 0
+        let randomIndex = Int(arc4random_uniform(UInt32(rainbowDelays.count)))
+        value = rainbowDelays[randomIndex]
+        
+        return value
+        
+    }
     
     
     /* Whenevr the hero touches a darkrainbow the death function will be executed*/
@@ -524,7 +534,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
     func generateRainbows(){
         
         // Generate a new Rainbow
-        if rainbows.count < Rainbows.Max.rawValue && delayer >= Rainbows.Delay.rawValue{
+        if rainbows.count < Rainbows.Max.rawValue && delayer >= currentDelay{
             
             var positionX: CGFloat
             var current:Rainbow
@@ -577,6 +587,7 @@ class InGameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 delayer = 0
+                currentDelay = generateDelay()
                 
                 current.name = spriteName
                 current.slot = slot
